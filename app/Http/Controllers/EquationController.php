@@ -47,12 +47,19 @@ class EquationController extends Controller
         // $y = $equation1 $op $equation2
         // return -> $y + $x
         $operation = $this->operations[$op];
-        $y = $this->resolvRandomEquation($equation1)->$operation($this->resolvRandomEquation($equation2));
+        $resultEquation1 = $this->resolvRandomEquation($equation1);
+        $resultEquation2 = $this->resolvRandomEquation($equation2);
+        $y = $resultEquation1->$operation($resultEquation2);
         $x = Rational::of($result)->minus($y)->simplified();
 
-        return "$result => " . $this->randomEquationToString($equation1)
+        $eq1 = $this->randomEquationToString($equation1);
+        $eq2 = $this->randomEquationToString($equation2);
+
+        return //"$result => " .
+            ""
+            . "<span title=\"$resultEquation1\" class=\"random-equation\">$eq1</span>"
             . " $op "
-            . $this->randomEquationToString($equation2)
+            . "<span title=\"$resultEquation2\" class=\"random-equation\">$eq2</span>"
             . " + $x";
     }
 
