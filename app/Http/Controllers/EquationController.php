@@ -18,14 +18,41 @@ class EquationController extends Controller
         ':' => 'dividedBy',
     ];
 
+    private $tickets = [
+        "464952",
+        "230048",
+        "347785",
+        "141744",
+        "073243",
+        "947020",
+        "624472",
+        "216505",
+        "121408",
+        "494052",
+    ];
+
+    public function index()
+    {
+        return view('selectTicket', ['numberOfTickets' => count($this->tickets)]);
+    }
+
     public function generate(Request $request)
     {
+        /*
         $this->validate($request, [
             'ticket' => 'required|regex:/^\d{6}$/',
         ]);
+         */
+        $max = count($this->tickets);
 
-        $equations = $this->equationsFromTicket($request->ticket);
-        return view('equation', compact('equations'));
+        $this->validate($request, [
+            'ticket' => "required|integer|min:1|max:$max",
+        ]);
+
+        return view('equation', [
+            'equations' => $this->equationsFromTicket($this->tickets[$request->ticket]),
+            'ticket' => $request->ticket,
+        ]);
     }
 
     private function equationsFromTicket($ticket)
