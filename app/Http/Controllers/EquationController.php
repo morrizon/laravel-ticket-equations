@@ -73,9 +73,9 @@ class EquationController extends Controller
 
         return //"$result => " .
             ""
-            . "<span title=\"$resultEquation1\" class=\"random-equation\">$eq1</span>"
+            . "<span data-toggle=\"tooltip\" data-placement=\"top\" title=\"$resultEquation1\" class=\"random-equation\">$eq1</span>"
             . " $op "
-            . "<span title=\"$resultEquation2\" class=\"random-equation\">$eq2</span>"
+            . "<span data-toggle=\"tooltip\" data-placement=\"top\" title=\"$resultEquation2\" class=\"random-equation\">$eq2</span>"
             . " + $x";
     }
 
