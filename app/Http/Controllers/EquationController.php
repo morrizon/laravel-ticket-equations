@@ -18,22 +18,11 @@ class EquationController extends Controller
         ':' => 'dividedBy',
     ];
 
-    private $tickets = [
-        "464952",
-        "230048",
-        "347785",
-        "141744",
-        "073243",
-        "947020",
-        "624472",
-        "216505",
-        "121408",
-        "494052",
-    ];
+    private $tickets;
 
     public function index()
     {
-        return view('selectTicket', ['numberOfTickets' => count($this->tickets)]);
+        return view('selectTicket', ['numberOfTickets' => count($this->tickets())]);
     }
 
     public function generate(Request $request)
@@ -43,14 +32,14 @@ class EquationController extends Controller
             'ticket' => 'required|regex:/^\d{6}$/',
         ]);
          */
-        $max = count($this->tickets);
+        $max = count($this->tickets());
 
         $this->validate($request, [
             'ticket' => "required|integer|min:1|max:$max",
         ]);
 
         return view('equation', [
-            'equations' => $this->equationsFromTicket($this->tickets[$request->ticket]),
+            'equations' => $this->equationsFromTicket($this->tickets()[$request->ticket]),
             'ticket' => $request->ticket,
         ]);
     }
@@ -152,5 +141,18 @@ class EquationController extends Controller
     private function mulOrDiv()
     {
         return rand(0,1) ? self::OP_MULT : self::OP_DIV;
+    }
+
+    private function tickets()
+    {
+        if (is_null($this->tickets)) {
+            $page = exec("bash ../bin/tickets.sh");
+            $matches = [];
+            preg_match_all('/\["id"\] = "\d{6}"/', $page, $matches);
+            $this->tickets = array_map(function($match) {
+                return preg_replace('/.*= "|"$/', '', $match);
+            }, $matches[0]);
+        }
+        return $this->tickets;
     }
 }
