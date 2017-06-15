@@ -2,7 +2,7 @@
 
 @section('content')
 	<h1>Ticket</h1>
-	<p class="lead">Select a ticket to generate the equations. If you resolv the equations, you will have internet!</p>
+	<p class="lead">Select a ticket to generate the equations. If you resolve the equations, you will have internet!</p>
 	<form method="post">
 		<div class="form-group">
 			{{ csrf_field() }}
