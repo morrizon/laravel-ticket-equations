@@ -10,6 +10,6 @@ This app was created to give an incentive for your kids to constantly practice m
 
 ### Install
 
-This app is based in the [docker-laravel-app](https://github.com/morrizon/docker-mysql-laravel) template. You must install docker, generate the 3 images, and run the containers.
+This app is based in the [docker-laravel-app](https://github.com/morrizon/docker-laravel-app) template. You must install docker, generate the 3 images, and run the containers.
 
 You also must config the [Laravel](https://laravel.com/) app. You can use .env.example as template. Don't forget add the URL and the password of the router.
